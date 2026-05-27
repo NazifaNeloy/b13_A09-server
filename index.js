@@ -36,6 +36,190 @@ const client = new MongoClient(uri, {
   }
 });
 
+// Mock Seeder Data for in-memory fallback
+const fallbackIdeas = [
+  {
+    _id: new ObjectId(),
+    title: "EcoSense: IoT Smart AgriTech Systems",
+    shortDescription: "Revolutionizing crop yields and water conservation through real-time autonomous IoT sensors and deep neural networking forecasts.",
+    detailedDescription: "EcoSense leverages custom soil-probe sensors transmitting nitrogen, phosphorus, potassium, and moisture parameters to an edge-computing gateway. Our neural algorithms compute custom irrigation metrics, lowering water usage by 40% while raising crop output by 25%. Perfect for mid-scale organic orchards and sustainable global co-ops.",
+    category: "AI",
+    tags: ["agritech", "sustain", "iot", "ai"],
+    imageUrl: "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&w=500&q=80",
+    estimatedBudget: 85000,
+    targetAudience: "Mid-scale organic farmers and smart farming co-operatives",
+    problemStatement: "Traditional farms lose up to 50% of water inputs due to static timer schedules and suffer severe crop damage from delayed soil micro-nutrient detection.",
+    proposedSolution: "Introduce autonomous cellular probe networks coupled with dynamic dashboards providing precise nutrient guidance.",
+    userEmail: "demo@ideavault.com",
+    userName: "Demo Innovator",
+    userPhoto: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80",
+    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+    likes: ["tester@ideavault.com", "user@ideavault.com"]
+  },
+  {
+    _id: new ObjectId(),
+    title: "DeFi Co-op Micro-Bonds Platform",
+    shortDescription: "Empowering rural communities and local merchants to issue secure, collateral-backed micro-bonds with zero intermediary fees.",
+    detailedDescription: "This Web3 platform facilitates the fractionalized tokenization of debt micro-bonds for localized merchants. Instead of facing 18%+ bank interest, businesses issue collateralized high-yield micro-bonds to neighborhood retail buyers. Backed by solid proof-of-reserves, driving credit accessibility forward.",
+    category: "Fintech",
+    tags: ["fintech", "web3", "defi", "coop"],
+    imageUrl: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=500&q=80",
+    estimatedBudget: 120000,
+    targetAudience: "Small town cooperative merchants and neighborhood micro-lenders",
+    problemStatement: "Traditional banking networks charge small-town co-ops high interest rates for simple working capital expansions, freezing regional growth.",
+    proposedSolution: "Allow communities to pool collateral directly inside smart contract vaults, bypassing expensive brokers entirely.",
+    userEmail: "finance@ideavault.com",
+    userName: "Satoshi Builder",
+    userPhoto: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=150&q=80",
+    createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
+    likes: ["demo@ideavault.com", "user@ideavault.com", "builder@ideavault.com"]
+  },
+  {
+    _id: new ObjectId(),
+    title: "XR Virtual Lab Classrooms",
+    shortDescription: "Breaking spatial educational barriers by putting photorealistic virtual reality science laboratories in the hands of global students.",
+    detailedDescription: "EcoVR is an immersive spatial curriculum providing high school physics, biology, and chemistry lab simulators in lightweight WebXR. Students perform molecular compound mixes, high-voltage physics experiments, and dissection simulations without physical supplies or hazardous setups.",
+    category: "Education",
+    tags: ["edtech", "vr", "xr", "science"],
+    imageUrl: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=500&q=80",
+    estimatedBudget: 45000,
+    targetAudience: "Underfunded high schools and global remote learning systems",
+    problemStatement: "High-quality laboratory apparatus is incredibly expensive, excluding millions of rural and underfunded students from crucial STEM validation work.",
+    proposedSolution: "Design cross-platform lightweight WebXR lab simulations accessible via standard browsers or standalone headsets.",
+    userEmail: "edu@ideavault.com",
+    userName: "Prof. Einstein",
+    userPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80",
+    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+    likes: ["demo@ideavault.com", "tester@ideavault.com"]
+  }
+];
+
+class MockCollection {
+  constructor(name, initialData = []) {
+    this.name = name;
+    this.data = [...initialData];
+  }
+
+  async insertOne(doc) {
+    const newDoc = { _id: new ObjectId(), ...doc };
+    this.data.push(newDoc);
+    return { success: true, insertedId: newDoc._id };
+  }
+
+  async insertMany(docs) {
+    const newDocs = docs.map(doc => ({ _id: new ObjectId(), ...doc }));
+    this.data.push(...newDocs);
+    return { success: true, insertedCount: newDocs.length };
+  }
+
+  find(query = {}) {
+    let results = [...this.data];
+    
+    if (query.title && query.title.$regex) {
+      const regex = new RegExp(query.title.$regex, query.title.$options || 'i');
+      results = results.filter(item => regex.test(item.title));
+    }
+    if (query.category && query.category !== 'All') {
+      results = results.filter(item => item.category === query.category);
+    }
+    if (query.ideaId) {
+      results = results.filter(item => item.ideaId === query.ideaId);
+    }
+    if (query.userEmail) {
+      results = results.filter(item => item.userEmail === query.userEmail);
+    }
+    if (query._id) {
+      results = results.filter(item => item._id.toString() === query._id.toString());
+    }
+
+    return {
+      sort: (sortObj) => {
+        const key = Object.keys(sortObj)[0];
+        const order = sortObj[key];
+        results.sort((a, b) => {
+          if (a[key] < b[key]) return -1 * order;
+          if (a[key] > b[key]) return 1 * order;
+          return 0;
+        });
+        return {
+          toArray: async () => results
+        };
+      },
+      toArray: async () => results
+    };
+  }
+
+  async findOne(query) {
+    const results = await this.find(query).toArray();
+    return results[0] || null;
+  }
+
+  async updateOne(query, updateDoc) {
+    const item = await this.findOne(query);
+    if (!item) return { modifiedCount: 0 };
+
+    if (updateDoc.$set) {
+      Object.assign(item, updateDoc.$set);
+    }
+    if (updateDoc.$addToSet) {
+      const key = Object.keys(updateDoc.$addToSet)[0];
+      const val = updateDoc.$addToSet[key];
+      item[key] = item[key] || [];
+      if (!item[key].includes(val)) {
+        item[key].push(val);
+      }
+    }
+    if (updateDoc.$pull) {
+      const key = Object.keys(updateDoc.$pull)[0];
+      const val = updateDoc.$pull[key];
+      item[key] = item[key] || [];
+      item[key] = item[key].filter(v => v !== val);
+    }
+
+    return { modifiedCount: 1 };
+  }
+
+  async deleteOne(query) {
+    const item = await this.findOne(query);
+    if (!item) return { deletedCount: 0 };
+    this.data = this.data.filter(i => i._id.toString() !== item._id.toString());
+    return { deletedCount: 1 };
+  }
+
+  async deleteMany(query) {
+    let countBefore = this.data.length;
+    if (query.ideaId) {
+      this.data = this.data.filter(i => i.ideaId !== query.ideaId);
+    }
+    return { deletedCount: countBefore - this.data.length };
+  }
+
+  aggregate(pipeline) {
+    let results = [...this.data];
+    
+    results = results.map(item => ({
+      ...item,
+      likesCount: item.likes?.length || 0
+    }));
+
+    results.sort((a, b) => {
+      if (b.likesCount !== a.likesCount) {
+        return b.likesCount - a.likesCount;
+      }
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+
+    const limitStage = pipeline.find(stage => stage.$limit);
+    if (limitStage) {
+      results = results.slice(0, limitStage.$limit);
+    }
+
+    return {
+      toArray: async () => results
+    };
+  }
+}
+
 let db, ideasCollection, commentsCollection;
 
 async function connectDB() {
@@ -46,7 +230,19 @@ async function connectDB() {
     commentsCollection = db.collection("comments");
     console.log("Successfully connected to MongoDB!");
   } catch (error) {
-    console.error("MongoDB connection error:", error);
+    console.warn("MongoDB connection failed. Initializing in-memory fallback collections.");
+    ideasCollection = new MockCollection("ideas", fallbackIdeas);
+    commentsCollection = new MockCollection("comments", [
+      {
+        _id: new ObjectId(),
+        ideaId: fallbackIdeas[0]._id.toString(),
+        text: "This is brilliant! The 40% water reduction metric completely validates the capital cost. I recommend checking out regional grants for AgriTech validation.",
+        userEmail: "tester@ideavault.com",
+        userName: "Auditor Tester",
+        userPhoto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80",
+        createdAt: new Date()
+      }
+    ]);
   }
 }
 connectDB();
