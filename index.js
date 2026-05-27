@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
 import { verifyToken } from './middlewares/auth.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 
 dotenv.config();
 
@@ -429,6 +430,8 @@ app.get('/my-interactions', verifyToken, async (req, res) => {
   }
 });
 
+
+app.use(errorHandler);
 
 // Start server
 app.listen(port, () => {
