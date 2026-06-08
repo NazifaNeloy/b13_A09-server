@@ -23,7 +23,8 @@ app.use(cors({
                         origin === 'http://127.0.0.1';
     const allowedOrigins = [
       'https://ideavault-d86b7.web.app',
-      'https://ideavault-d86b7.firebaseapp.com'
+      'https://ideavault-d86b7.firebaseapp.com',
+      'https://b13-a09-murex.vercel.app'
     ];
     if (isLocalhost || allowedOrigins.includes(origin)) {
       callback(null, true);
