@@ -232,7 +232,19 @@ class MockCollection {
   }
 }
 
-let db, ideasCollection, commentsCollection;
+let db;
+let ideasCollection = new MockCollection("ideas", fallbackIdeas);
+let commentsCollection = new MockCollection("comments", [
+  {
+    _id: new ObjectId(),
+    ideaId: fallbackIdeas[0]._id.toString(),
+    text: "This is brilliant! The 40% water reduction metric completely validates the capital cost. I recommend checking out regional grants for AgriTech validation.",
+    userEmail: "tester@ideavault.com",
+    userName: "Auditor Tester",
+    userPhoto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80",
+    createdAt: new Date()
+  }
+]);
 
 async function connectDB() {
   try {
@@ -242,19 +254,7 @@ async function connectDB() {
     commentsCollection = db.collection("comments");
     console.log("Successfully connected to MongoDB!");
   } catch (error) {
-    console.warn("MongoDB connection failed. Initializing in-memory fallback collections.");
-    ideasCollection = new MockCollection("ideas", fallbackIdeas);
-    commentsCollection = new MockCollection("comments", [
-      {
-        _id: new ObjectId(),
-        ideaId: fallbackIdeas[0]._id.toString(),
-        text: "This is brilliant! The 40% water reduction metric completely validates the capital cost. I recommend checking out regional grants for AgriTech validation.",
-        userEmail: "tester@ideavault.com",
-        userName: "Auditor Tester",
-        userPhoto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80",
-        createdAt: new Date()
-      }
-    ]);
+    console.warn("MongoDB connection failed. Using in-memory fallback collections.");
   }
 }
 connectDB();
