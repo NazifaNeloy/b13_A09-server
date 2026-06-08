@@ -21,7 +21,7 @@ const initialIdeas = [
     userEmail: "demo@ideavault.com",
     userName: "Demo Innovator",
     userPhoto: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80",
-    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+    createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
     likes: ["tester@ideavault.com", "user@ideavault.com"]
   },
   {
@@ -38,7 +38,7 @@ const initialIdeas = [
     userEmail: "finance@ideavault.com",
     userName: "Satoshi Builder",
     userPhoto: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=150&q=80",
-    createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
+    createdAt: new Date(Date.now() - 9 * 24 * 60 * 60 * 1000),
     likes: ["demo@ideavault.com", "user@ideavault.com", "builder@ideavault.com"]
   },
   {
@@ -55,7 +55,7 @@ const initialIdeas = [
     userEmail: "edu@ideavault.com",
     userName: "Prof. Einstein",
     userPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80",
-    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+    createdAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000),
     likes: ["demo@ideavault.com", "tester@ideavault.com"]
   },
   {
@@ -72,7 +72,7 @@ const initialIdeas = [
     userEmail: "doc@ideavault.com",
     userName: "Dr. Florence",
     userPhoto: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80",
-    createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+    createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
     likes: ["builder@ideavault.com"]
   },
   {
@@ -89,7 +89,7 @@ const initialIdeas = [
     userEmail: "retail@ideavault.com",
     userName: "Ada Merchandiser",
     userPhoto: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80",
-    createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+    createdAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
     likes: ["user@ideavault.com", "tester@ideavault.com"]
   },
   {
@@ -106,8 +106,110 @@ const initialIdeas = [
     userEmail: "academy@ideavault.com",
     userName: "Grace Hopper",
     userPhoto: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80",
-    createdAt: new Date(),
+    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
     likes: []
+  },
+  {
+    title: "CareLink: Decentralized Eldercare Network",
+    shortDescription: "Connecting remote families with certified, verified local eldercare professionals through an on-demand, transparent scheduling platform.",
+    detailedDescription: "CareLink offers an on-demand care-matching system for senior citizens. Families can schedule nurse visits, physical therapy, and daily companion services. Uses secure multi-signature verification and background-check database integration to guarantee safety and compliance.",
+    category: "Health",
+    tags: ["health", "eldercare", "care", "on-demand"],
+    imageUrl: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=500&q=80",
+    estimatedBudget: 55000,
+    targetAudience: "Seniors requiring assisted care and their family decision-makers",
+    problemStatement: "Finding trustworthy, certified, and instantly available eldercare providers is challenging, opaque, and highly fragmented.",
+    proposedSolution: "A verified eldercare network that tracks check-ins, provides real-time updates to families, and manages payments securely.",
+    userEmail: "care@ideavault.com",
+    userName: "Sarah Jenkins",
+    userPhoto: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80",
+    createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
+    likes: ["tester@ideavault.com"]
+  },
+  {
+    title: "GreenRoute: Carbon-Neutral Supply Chain AI",
+    shortDescription: "Optimizing logistics routes for commercial fleets to minimize fuel consumption, maximize payloads, and automate carbon offset tracking.",
+    detailedDescription: "GreenRoute is an API-first routing optimization engine for delivery fleets. Integrating real-time traffic, elevation profiles, weather, and payload weights, our AI determines the lowest carbon route. Automatically compiles verified ESG audit reports for corporate compliance.",
+    category: "AI",
+    tags: ["ai", "logistics", "esg", "sustainability"],
+    imageUrl: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=500&q=80",
+    estimatedBudget: 140000,
+    targetAudience: "Enterprise shipping companies and third-party logistics (3PL) providers",
+    problemStatement: "Freight transport accounts for 8% of global greenhouse gas emissions due to suboptimal routing, empty backhauls, and legacy dispatching.",
+    proposedSolution: "Implement real-time machine learning route updates paired with automated carbon tracking and localized carbon-offset purchasing.",
+    userEmail: "logistics@ideavault.com",
+    userName: "Marcus Vance",
+    userPhoto: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&q=80",
+    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+    likes: ["builder@ideavault.com", "user@ideavault.com"]
+  },
+  {
+    title: "OmniSearch: Private Federated Search Engine",
+    shortDescription: "A private, zero-tracking federated search solution aggregating developer endpoints and documentation without selling user search patterns.",
+    detailedDescription: "OmniSearch indexes public developer APIs, forums, and package registries. Using local client-side search indexing and zero cookie tracking, it delivers lightning-fast documentation lookup. Users control their telemetry data with full opt-in privacy standards.",
+    category: "Tech",
+    tags: ["tech", "privacy", "search", "developer"],
+    imageUrl: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=500&q=80",
+    estimatedBudget: 75000,
+    targetAudience: "Privacy-conscious software developers and enterprise engineering teams",
+    problemStatement: "Current search engines sell user search queries and developer history to advertisers, compromising corporate IP and data privacy.",
+    proposedSolution: "Build a zero-tracking federated index that returns developer answers directly with cryptographic client-side telemetry protection.",
+    userEmail: "privacy@ideavault.com",
+    userName: "Linus Torvalds",
+    userPhoto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80",
+    createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+    likes: ["demo@ideavault.com"]
+  },
+  {
+    title: "AeroForge: Autonomous Drone Delivery Logistics",
+    shortDescription: "Building the decentralized highway control system for autonomous commercial drone fleets navigating low-altitude urban airspace.",
+    detailedDescription: "AeroForge creates software infrastructure for drone flight routing, battery swap logistics, and package loading. It serves as an air traffic controller for autonomous delivery craft, avoiding buildings, powerlines, and other drones dynamically via peer-to-peer telemetry.",
+    category: "Tech",
+    tags: ["tech", "drone", "logistics", "aviation"],
+    imageUrl: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=500&q=80",
+    estimatedBudget: 185000,
+    targetAudience: "E-commerce retailers, healthcare networks, and cargo operators",
+    problemStatement: "Last-mile shipping in metropolitan centers is slow, expensive, and congested. Urban drone delivery is restricted by unsafe airspace routing.",
+    proposedSolution: "An automated low-altitude air navigation software platform matching drone sensors with dynamic zoning regulations.",
+    userEmail: "aero@ideavault.com",
+    userName: "Elon Flight",
+    userPhoto: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=150&q=80",
+    createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+    likes: ["builder@ideavault.com", "user@ideavault.com"]
+  },
+  {
+    title: "CivicVibe: Community-driven Urban Planning",
+    shortDescription: "A public discussion and consensus-building platform for city residents to vote on municipal developments and local budget allocation.",
+    detailedDescription: "CivicVibe enables citizens to propose and rate neighborhood improvements like parks, bike lanes, or community centers. Integrating GIS mapping, it lets users tag specific coordinates and directly interact with city council committees.",
+    category: "Other",
+    tags: ["community", "govtech", "civic", "gis"],
+    imageUrl: "https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=crop&w=500&q=80",
+    estimatedBudget: 20000,
+    targetAudience: "Municipal governments and local community organizers",
+    problemStatement: "Traditional town halls have extremely low attendance, shutting out younger, working-class voices from local budgeting and design decisions.",
+    proposedSolution: "A gamified geographic feedback application enabling digital community votes on capital improvements.",
+    userEmail: "civic@ideavault.com",
+    userName: "Jane Jacobs",
+    userPhoto: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80",
+    createdAt: new Date(Date.now() - 12 * 60 * 60 * 1000),
+    likes: ["tester@ideavault.com"]
+  },
+  {
+    title: "BakeFlow: Smart Bakery Operations ERP",
+    shortDescription: "Streamlining inventory, flour hydration calculators, dynamic oven schedules, and retail orders for independent artisan bakery shops.",
+    detailedDescription: "BakeFlow is a tailored ERP software specifically optimized for bakeries. It calculates exact flour, water, and yeast ratios dynamically based on ambient temperature and relative humidity. Automatically calculates baking schedules to match high retail demand hours, reducing flour waste.",
+    category: "Retail",
+    tags: ["retail", "erp", "bakery", "iot"],
+    imageUrl: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80",
+    estimatedBudget: 15000,
+    targetAudience: "Independent artisan bakers and patisserie shop owners",
+    problemStatement: "Baking is highly sensitive to ambient humidity and temperature, leading to inconsistent bread batches and wasted dough under standard recipes.",
+    proposedSolution: "A humidity-responsive dough formulation calculator integrated with store inventory and oven schedules.",
+    userEmail: "bakery@ideavault.com",
+    userName: "Paul Hollywood",
+    userPhoto: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80",
+    createdAt: new Date(),
+    likes: ["demo@ideavault.com"]
   }
 ];
 
