@@ -15,14 +15,22 @@ const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-    'http://localhost:5174',
-    'http://127.0.0.1:5174',
-    'https://ideavault-d86b7.web.app',
-    'https://ideavault-d86b7.firebaseapp.com'
-  ],
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    const isLocalhost = origin.startsWith('http://localhost:') || 
+                        origin.startsWith('http://127.0.0.1:') || 
+                        origin === 'http://localhost' || 
+                        origin === 'http://127.0.0.1';
+    const allowedOrigins = [
+      'https://ideavault-d86b7.web.app',
+      'https://ideavault-d86b7.firebaseapp.com'
+    ];
+    if (isLocalhost || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Blocked by CORS'));
+    }
+  },
   credentials: true
 }));
 app.use(express.json());
