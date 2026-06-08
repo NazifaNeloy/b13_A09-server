@@ -24,7 +24,10 @@ app.use(cors({
     const allowedOrigins = [
       'https://ideavault-d86b7.web.app',
       'https://ideavault-d86b7.firebaseapp.com',
-      'https://b13-a09-murex.vercel.app'
+      'https://b13-a09-murex.vercel.app',
+      'https://ideavault-client-neon.vercel.app',
+      'https://ideavault-client-nazifaneloys-projects.vercel.app',
+      'https://ideavault-client-nazifaneloy-nazifaneloys-projects.vercel.app'
     ];
     if (isLocalhost || allowedOrigins.includes(origin)) {
       callback(null, true);
