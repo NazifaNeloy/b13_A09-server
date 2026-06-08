@@ -2,6 +2,10 @@
 
 The robust backend engine for the **IdeaVault Startup Idea Sharing & Validation Platform**. Built with Node.js, Express, and MongoDB, this server implements JWT session signing, secure RESTful CRUD APIs, MongoDB aggregation algorithms, and activity logging.
 
+## 📂 GitHub Repository
+👉 **[GitHub Repository (NazifaNeloy/b13_A09)](https://github.com/NazifaNeloy/b13_A09)**
+
+
 ## Core Technical Architecture
 
 - **Runtime**: Node.js (v24+)
